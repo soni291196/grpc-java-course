@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package calculator;
+
+option java_package = "com.proto.calculator";
+option java_multiple_files = true;
+
+message Numbers {
+  float first_num = 1;
+  float second_num = 2;
+}
+
+message CalculatorRequest {
+  Numbers numbers = 1;
+}
+
+message CalculatorResponse {
+  float result = 1;
+}
+
+message PrimeDecompositionRequest {
+  int32 number = 1;
+}
+
+message PrimeDecompositionResponse {
+  float result = 1;
+}
+
+message ComputeAverageRequest {
+  int32 number = 1;
+}
+
+message ComputeAverageResponse {
+  double average = 1;
+}
+
+message FindMaximumRequest {
+  int32 number = 1;
+}
+
+message FindMaximumResponse {
+  int32 maximum = 1;
+}
+
+message SquareRootRequest {
+  int32 number = 1;
+}
+
+message SquareRootResponse {
+  double number_root = 1;
+}
+
+service SumCalculatorService {
+  rpc sum(CalculatorRequest) returns (CalculatorResponse) {};
+}
+
+service PrimeDecompositionService {
+  rpc decompose(PrimeDecompositionRequest) returns (stream PrimeDecompositionResponse) {};
+}
+
+service ComputeAverageService {
+  rpc computeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
+}
+
+service FindMaximumService {
+  rpc findMaximum(stream FindMaximumRequest) returns (stream FindMaximumResponse) {};
+}
+
+service SquareRootService {
+  //error handling
+  // this RPC will throw an exception if the sent number is negative
+  rpc squareRoot(SquareRootRequest) returns (SquareRootResponse) {};
+}
